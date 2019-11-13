@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FocacciaComandasDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Categorias">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descripcion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Productos" Relationship="Self.fk_Prod_Cat" FromRole="Categorias" ToRole="Productos" />
+  </EntityType>
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="telfono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="observacion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Domicilios" Relationship="Self.fk_Domi_Cli" FromRole="Clientes" ToRole="Domicilios" />
+    <NavigationProperty Name="Ordenes" Relationship="Self.fk_Orden_Cli" FromRole="Clientes" ToRole="Ordenes" />
+  </EntityType>
+  <EntityType Name="DetallesOrden">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cantidad" Type="Int32" Nullable="false" />
+    <Property Name="sub_total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="id_orden" Type="Int32" Nullable="false" />
+    <Property Name="id_producto" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Ordenes" Relationship="Self.fk_detOrden_Orden" FromRole="DetallesOrden" ToRole="Ordenes" />
+    <NavigationProperty Name="Productos" Relationship="Self.fk_detOrden_Producto" FromRole="DetallesOrden" ToRole="Productos" />
+  </EntityType>
+  <EntityType Name="Domicilios">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_cliente" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Clientes" Relationship="Self.fk_Domi_Cli" FromRole="Domicilios" ToRole="Clientes" />
+    <NavigationProperty Name="Ordenes" Relationship="Self.fk_Orden_Domi" FromRole="Domicilios" ToRole="Ordenes" />
+  </EntityType>
+  <EntityType Name="Estados">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descripcion" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Ordenes" Relationship="Self.fk_Ord_Estados" FromRole="Estados" ToRole="Ordenes" />
+  </EntityType>
+  <EntityType Name="Ordenes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="observacion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="id_cliente" Type="Int32" Nullable="false" />
+    <Property Name="id_domicilio" Type="Int32" Nullable="false" />
+    <Property Name="id_estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Clientes" Relationship="Self.fk_Orden_Cli" FromRole="Ordenes" ToRole="Clientes" />
+    <NavigationProperty Name="DetallesOrden" Relationship="Self.fk_detOrden_Orden" FromRole="Ordenes" ToRole="DetallesOrden" />
+    <NavigationProperty Name="Domicilios" Relationship="Self.fk_Orden_Domi" FromRole="Ordenes" ToRole="Domicilios" />
+    <NavigationProperty Name="Estados" Relationship="Self.fk_Ord_Estados" FromRole="Ordenes" ToRole="Estados" />
+    <Property Name="fecha" Type="DateTime" Precision="3" />
+    <Property Name="hora" Type="Time" Precision="7" />
+  </EntityType>
+  <EntityType Name="Productos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="precio" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_categoria" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Categorias" Relationship="Self.fk_Prod_Cat" FromRole="Productos" ToRole="Categorias" />
+    <NavigationProperty Name="DetallesOrden" Relationship="Self.fk_detOrden_Producto" FromRole="Productos" ToRole="DetallesOrden" />
+  </EntityType>
+  <Association Name="fk_Prod_Cat">
+    <End Role="Categorias" Type="Self.Categorias" Multiplicity="1" />
+    <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorias">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Productos">
+        <PropertyRef Name="id_categoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Domi_Cli">
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+    <End Role="Domicilios" Type="Self.Domicilios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Domicilios">
+        <PropertyRef Name="id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Orden_Cli">
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+    <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Ordenes">
+        <PropertyRef Name="id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_detOrden_Orden">
+    <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="1" />
+    <End Role="DetallesOrden" Type="Self.DetallesOrden" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ordenes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="DetallesOrden">
+        <PropertyRef Name="id_orden" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_detOrden_Producto">
+    <End Role="Productos" Type="Self.Productos" Multiplicity="1" />
+    <End Role="DetallesOrden" Type="Self.DetallesOrden" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Productos">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="DetallesOrden">
+        <PropertyRef Name="id_producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Orden_Domi">
+    <End Role="Domicilios" Type="Self.Domicilios" Multiplicity="1" />
+    <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Domicilios">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Ordenes">
+        <PropertyRef Name="id_domicilio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Ord_Estados">
+    <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+    <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estados">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Ordenes">
+        <PropertyRef Name="id_estado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FocacciaComandasDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categorias" EntityType="Self.Categorias" />
+    <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+    <EntitySet Name="DetallesOrden" EntityType="Self.DetallesOrden" />
+    <EntitySet Name="Domicilios" EntityType="Self.Domicilios" />
+    <EntitySet Name="Estados" EntityType="Self.Estados" />
+    <EntitySet Name="Ordenes" EntityType="Self.Ordenes" />
+    <EntitySet Name="Productos" EntityType="Self.Productos" />
+    <AssociationSet Name="fk_Prod_Cat" Association="Self.fk_Prod_Cat">
+      <End Role="Categorias" EntitySet="Categorias" />
+      <End Role="Productos" EntitySet="Productos" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Domi_Cli" Association="Self.fk_Domi_Cli">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="Domicilios" EntitySet="Domicilios" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Orden_Cli" Association="Self.fk_Orden_Cli">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="Ordenes" EntitySet="Ordenes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_detOrden_Orden" Association="Self.fk_detOrden_Orden">
+      <End Role="Ordenes" EntitySet="Ordenes" />
+      <End Role="DetallesOrden" EntitySet="DetallesOrden" />
+    </AssociationSet>
+    <AssociationSet Name="fk_detOrden_Producto" Association="Self.fk_detOrden_Producto">
+      <End Role="Productos" EntitySet="Productos" />
+      <End Role="DetallesOrden" EntitySet="DetallesOrden" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Orden_Domi" Association="Self.fk_Orden_Domi">
+      <End Role="Domicilios" EntitySet="Domicilios" />
+      <End Role="Ordenes" EntitySet="Ordenes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Ord_Estados" Association="Self.fk_Ord_Estados">
+      <End Role="Estados" EntitySet="Estados" />
+      <End Role="Ordenes" EntitySet="Ordenes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

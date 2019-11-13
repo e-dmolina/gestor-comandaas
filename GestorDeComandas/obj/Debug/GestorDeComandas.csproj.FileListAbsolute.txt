@@ -1,0 +1,17 @@
+C:\Users\diego\source\repos\GestorDeComandas\GestorDeComandas\bin\Debug\GestorDeComandas.exe.config
+C:\Users\diego\source\repos\GestorDeComandas\GestorDeComandas\bin\Debug\GestorDeComandas.exe
+C:\Users\diego\source\repos\GestorDeComandas\GestorDeComandas\bin\Debug\GestorDeComandas.pdb
+C:\Users\diego\source\repos\GestorDeComandas\GestorDeComandas\bin\Debug\EntityFramework.dll
+C:\Users\diego\source\repos\GestorDeComandas\GestorDeComandas\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\diego\source\repos\GestorDeComandas\GestorDeComandas\bin\Debug\EntityFramework.xml
+C:\Users\diego\source\repos\GestorDeComandas\GestorDeComandas\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\diego\source\repos\GestorDeComandas\GestorDeComandas\obj\Debug\GestorDeComandas.csprojAssemblyReference.cache
+C:\Users\diego\source\repos\GestorDeComandas\GestorDeComandas\obj\Debug\GestorDeComandas.Form1.resources
+C:\Users\diego\source\repos\GestorDeComandas\GestorDeComandas\obj\Debug\GestorDeComandas.Properties.Resources.resources
+C:\Users\diego\source\repos\GestorDeComandas\GestorDeComandas\obj\Debug\GestorDeComandas.csproj.GenerateResource.cache
+C:\Users\diego\source\repos\GestorDeComandas\GestorDeComandas\obj\Debug\GestorDeComandas.csproj.CoreCompileInputs.cache
+C:\Users\diego\source\repos\GestorDeComandas\GestorDeComandas\obj\Debug\GestorDeComandas.csproj.CopyComplete
+C:\Users\diego\source\repos\GestorDeComandas\GestorDeComandas\obj\Debug\GestorDeComandas.exe
+C:\Users\diego\source\repos\GestorDeComandas\GestorDeComandas\obj\Debug\GestorDeComandas.pdb
+C:\Users\diego\source\repos\GestorDeComandas\GestorDeComandas\obj\Debug\GestorDeComandas.FrmPedidos.resources
+C:\Users\diego\source\repos\GestorDeComandas\GestorDeComandas\obj\Debug\GestorDeComandas.FrmCliente.resources
